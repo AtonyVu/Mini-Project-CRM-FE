@@ -1,0 +1,17 @@
+.User_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #252429;
+  margin: 10px 10px;
+  padding: 10px 10px;
+}
+.User_container_content {
+  display: flex;
+  justify-content: space-between;
+}
+.User_container_content img {
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
