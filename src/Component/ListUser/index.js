@@ -27,6 +27,7 @@ export default class ListUser extends Component {
         this.setState({ data: result.data.data.users, loading: false });
         console.log(result.data.data.users);
         this.setState({
+          dataProfile: result.data.data.users[0],
           dataA: result.data.data.users[0].name,
           dataB: result.data.data.users[0].email,
         });
@@ -60,10 +61,12 @@ export default class ListUser extends Component {
   clickSearch = () => {
     const search = document.getElementById("search_fi");
     if (this.state.stateSearchfi) {
-      search.style.width = "200px";
+      search.style.width = "150px";
+      search.style.display = "inline";
       this.setState({ stateSearchfi: false });
     } else {
       search.style.width = "0px";
+      search.style.display = "none";
       this.setState({ stateSearchfi: true });
     }
   };
@@ -137,7 +140,7 @@ export default class ListUser extends Component {
     });
     console.log(DataSearch);
     return (
-      <div className="container">
+      <div className="containerr">
         {/* <input
           type="text"
           onChange={this.handleOnchange}
@@ -164,7 +167,9 @@ export default class ListUser extends Component {
               ></i>
             </div>
           </div>
-          <ul>{this.renderUser(DataSearch)}</ul>
+          <ul className="ListUser_container_ul">
+            {this.renderUser(DataSearch)}
+          </ul>
         </div>
         <div className="User_profile">
           <div className="User_profile_container">
@@ -180,8 +185,8 @@ export default class ListUser extends Component {
                   className="User_profile_container_content_text_text"
                   id="User_profile_container_content_text_text"
                 >
-                  <p>{this.state.dataA}</p>
-                  <p>{this.state.dataB}</p>
+                  <p className="text-primary">{this.state.dataA}</p>
+                  <p className="text-primary">{this.state.dataB}</p>
                 </div>
                 <div className="User_profile_container_content_text_wheel">
                   <div className="item" id="wheel_item1"></div>

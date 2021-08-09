@@ -1,14 +1,15 @@
 import React, { Component } from "react";
+import axiosFetch from "../../../axios";
 import "./css.css";
-import axiosFetch from "../../axios";
-export default class Modal extends Component {
+export default class ModalUser extends Component {
   constructor(props) {
     super(props);
+    const { name, email, sdt, address } = props.dataUser;
     this.state = {
-      name: "",
-      email: "",
-      sdt: "",
-      address: "",
+      name: name,
+      email: email,
+      sdt: sdt,
+      address: address,
     };
   }
   handleOnchange = (e) => {
@@ -19,29 +20,33 @@ export default class Modal extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    this.createUser();
+    this.updateUser();
     console.log(this.state);
   };
-  createUser = () => {
+
+  updateUser = () => {
     axiosFetch(
-      "https://mini-project-crm-api.herokuapp.com/api/v1/users/",
-      "POST",
+      `https://mini-project-crm-api.herokuapp.com/api/v1/users/${this.props.dataUser._id}`,
+      "PATCH",
       this.state
     )
       .then((result) => {
         console.log(result);
+        alert("ok roi do ");
       })
       .catch((err) => {
         console.log(err);
+        console.log("loi roi ");
       });
   };
   render() {
+    const { name, email, sdt, address } = this.state;
     return (
       <div>
-        <div>
+        <div className="ModalUser">
           <div
             className="modal fade"
-            id="exampleModal"
+            id="exampleModal1"
             tabIndex={-1}
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
@@ -50,7 +55,7 @@ export default class Modal extends Component {
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" id="exampleModalLabel">
-                    Thêm User
+                    Update User
                   </h5>
                   <button
                     type="button"
@@ -74,6 +79,7 @@ export default class Modal extends Component {
                         id="recipient-name"
                         name="name"
                         onChange={this.handleOnchange}
+                        value={name}
                       />
                     </div>
                     <div className="mb-3">
@@ -88,6 +94,7 @@ export default class Modal extends Component {
                         className="form-control"
                         id="recipient-name"
                         name="email"
+                        value={email}
                         onChange={this.handleOnchange}
                       />
                     </div>
@@ -103,6 +110,7 @@ export default class Modal extends Component {
                         className="form-control"
                         id="recipient-name"
                         name="sdt"
+                        value={sdt}
                         onChange={this.handleOnchange}
                       />
                     </div>
@@ -118,6 +126,7 @@ export default class Modal extends Component {
                         className="form-control"
                         id="recipient-name"
                         name="address"
+                        value={address}
                         onChange={this.handleOnchange}
                       />
                     </div>
