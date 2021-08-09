@@ -38,8 +38,8 @@ export default class User extends Component {
           <div className="User_container_content">
             <img src="https://static.toiimg.com/thumb/resizemode-4,msid-76729536,width-1200,height-900/76729536.jpg"></img>
             <div>
-              <p>{data.name}</p>
-              <p>{data.email}</p>
+              <p className="User_name">{data.name}</p>
+              <p className="User_email">{data.email}</p>
             </div>
           </div>
           <div class="dropdown">
