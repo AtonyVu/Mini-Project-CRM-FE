@@ -32,7 +32,11 @@ export default class ModalUser extends Component {
     )
       .then((result) => {
         console.log(result);
+
         alert("ok roi do ");
+        this.props.handleUpdate();
+        const myModal = document.getElementById("btn-close2");
+        myModal.click();
       })
       .catch((err) => {
         console.log(err);
@@ -135,6 +139,7 @@ export default class ModalUser extends Component {
                         type="button"
                         className="btn btn-secondary"
                         data-bs-dismiss="modal"
+                        id="btn-close2"
                       >
                         Close
                       </button>

@@ -93,30 +93,47 @@ body {
   height: 100%;
 }
 .User_profile_container_content_text {
-  color: #252429;
+  /* color: #252429; */
   position: absolute;
   right: 10%;
   display: flex;
   height: 200px;
-  justify-content: space-between;
-  width: 50%;
+  justify-content: flex-end;
+  width: 60%;
   font-size: 20px;
   font-weight: 700;
   text-transform: uppercase;
   align-items: center;
 }
-.User_profile_container_content_text_wheel .item {
+.User_profile_container_content_text p {
+  /* color: #252429; */
+  color: gray;
+  font-weight: 500;
+  font-size: 18px;
+}
+.User_profile_container_content_text i {
+  margin-right: 20px;
+}
+/* .User_profile_container_content_text_wheel .item {
   width: 10px;
   height: 10px;
   background-color: #252429;
   border-radius: 5px;
   transition: all 0.2 linear;
   margin-bottom: 40px;
-}
+} */
 /* .User_profile_container_content_text_text {
   animation: ani 0.7s linear 0s 1 alternate;
 } */
-
+.fa-share-square {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+.fa-share-square:hover {
+  color: darkblue;
+}
 @keyframes ani {
   0% {
     transform: translateY(-100px);

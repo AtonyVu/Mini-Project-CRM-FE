@@ -1,50 +1,56 @@
 import React, { Component } from "react";
 import "./css.css";
-import axiosFetch from "../../axios";
-export default class Modal extends Component {
+import axiosFetch from "../../../axios";
+export default class ModalSendMail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      header: "",
+      message: "",
       email: "",
-      sdt: "",
-      address: "",
     };
   }
+
   handleOnchange = (e) => {
     console.log(e.target.name);
     this.setState({
       [e.target.name]: e.target.value,
+      email: this.props.dataSendMail,
     });
+    console.log(this.state);
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    this.createUser();
+    this.sendMailUser();
     console.log(this.state);
   };
-  createUser = () => {
+  sendMailUser = () => {
     axiosFetch(
-      "https://mini-project-crm-api.herokuapp.com/api/v1/users/",
+      "https://mini-project-crm-api.herokuapp.com/api/v1/users/sendmail",
       "POST",
       this.state
     )
       .then((result) => {
+        const myModal = document.getElementById("btn-close");
         console.log(result);
-        alert("ADD Thành Công");
-        window.location.reload();
+        alert("Gửi mail Thành Công");
+        document.getElementById("myform1").reset();
+        myModal.click();
       })
       .catch((err) => {
         console.log(err);
-        alert("ADD Không thành công");
+        alert("Gửi mail Không thành công");
+        document.getElementById("myform1").reset();
       });
   };
   render() {
+    console.log(this.props.dataSendMail);
     return (
       <div>
-        <div>
+        <div className="ModalUser">
           <div
             className="modal fade"
-            id="exampleModal"
+            id="exampleModal2"
             tabIndex={-1}
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
@@ -53,7 +59,7 @@ export default class Modal extends Component {
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" id="exampleModalLabel">
-                    Thêm User
+                    SEND MAIL
                   </h5>
                   <button
                     type="button"
@@ -63,19 +69,19 @@ export default class Modal extends Component {
                   />
                 </div>
                 <div className="modal-body">
-                  <form onSubmit={this.handleSubmit}>
+                  <form onSubmit={this.handleSubmit} id="myform1">
                     <div className="mb-3">
                       <label
                         htmlFor="recipient-name"
                         className="col-form-label"
                       >
-                        Name:
+                        Tiêu Đề:
                       </label>
                       <input
                         type="text"
                         className="form-control"
                         id="recipient-name"
-                        name="name"
+                        name="header"
                         onChange={this.handleOnchange}
                       />
                     </div>
@@ -84,51 +90,23 @@ export default class Modal extends Component {
                         htmlFor="recipient-name"
                         className="col-form-label"
                       >
-                        email:
+                        Message:
                       </label>
                       <input
                         type="text"
                         className="form-control"
                         id="recipient-name"
-                        name="email"
+                        name="message"
                         onChange={this.handleOnchange}
                       />
                     </div>
-                    <div className="mb-3">
-                      <label
-                        htmlFor="recipient-name"
-                        className="col-form-label"
-                      >
-                        SDT:
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="recipient-name"
-                        name="sdt"
-                        onChange={this.handleOnchange}
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <label
-                        htmlFor="recipient-name"
-                        className="col-form-label"
-                      >
-                        Address:
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="recipient-name"
-                        name="address"
-                        onChange={this.handleOnchange}
-                      />
-                    </div>
+
                     <div className="modal-footer">
                       <button
                         type="button"
                         className="btn btn-secondary"
                         data-bs-dismiss="modal"
+                        id="btn-close"
                       >
                         Close
                       </button>

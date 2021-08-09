@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axiosFetch from "../../axios";
 import "./css.css";
 import User from "../User";
+import ModalSendMail from "../Modal/SendMailModal";
 export default class ListUser extends Component {
   constructor(props) {
     super(props);
@@ -36,6 +37,9 @@ export default class ListUser extends Component {
         console.log(err);
       });
   };
+  updateUser = () => {
+    this.fetchGetUser();
+  };
   componentDidMount() {
     this.fetchGetUser();
   }
@@ -54,6 +58,7 @@ export default class ListUser extends Component {
           dataItem={item}
           profile={this.dataUserProfile}
           deleteUser={this.deleteUsers}
+          updateUser={this.updateUser}
         />
       );
     });
@@ -76,63 +81,64 @@ export default class ListUser extends Component {
     this.setState({
       dataState: 2,
     });
-    const wheel = document.getElementById("wheel_item1");
-    const wheel2 = document.getElementById("wheel_item2");
-    const wheel3 = document.getElementById("wheel_item3");
-    wheel.style.height = "30px";
-    wheel2.style.height = "10px";
-    wheel3.style.height = "10px";
+    // const wheel = document.getElementById("wheel_item1");
+    // const wheel2 = document.getElementById("wheel_item2");
+    // const wheel3 = document.getElementById("wheel_item3");
+    // wheel.style.height = "30px";
+    // wheel2.style.height = "10px";
+    // wheel3.style.height = "10px";
   };
-  handleOnScroll = () => {
-    if (this.state.dataState === 1) {
-      this.setState({
-        dataA: this.state.dataProfile.name,
-        dataB: this.state.dataProfile.email,
-        dataState: 2,
-      });
-      const wheel = document.getElementById("wheel_item1");
-      const wheel2 = document.getElementById("wheel_item2");
-      const wheel3 = document.getElementById("wheel_item3");
+  // handleOnScroll = () => {
+  //   if (this.state.dataState === 1) {
+  //     this.setState({
+  //       dataA: this.state.dataProfile.name,
+  //       dataB: this.state.dataProfile.email,
+  //       dataState: 2,
+  //     });
+  //     const wheel = document.getElementById("wheel_item1");
+  //     const wheel2 = document.getElementById("wheel_item2");
+  //     const wheel3 = document.getElementById("wheel_item3");
 
-      wheel.style.height = "30px";
-      wheel2.style.height = "10px";
-      wheel3.style.height = "10px";
-    }
-    if (this.state.dataState === 2) {
-      this.setState({
-        dataA: this.state.dataProfile.sdt,
-        dataB: this.state.dataProfile.address,
-        dataState: 3,
-      });
-      const wheel = document.getElementById("wheel_item1");
-      const wheel2 = document.getElementById("wheel_item2");
-      const wheel3 = document.getElementById("wheel_item3");
-      wheel.style.height = "10px";
-      wheel2.style.height = "30px";
-      wheel3.style.height = "10px";
-    }
-    if (this.state.dataState === 3) {
-      this.setState({
-        dataA: this.state.dataProfile.CurrentSigninAt,
-        dataB: this.state.dataProfile.CurrentSigninAt,
+  //     wheel.style.height = "30px";
+  //     wheel2.style.height = "10px";
+  //     wheel3.style.height = "10px";
+  //   }
+  //   if (this.state.dataState === 2) {
+  //     this.setState({
+  //       dataA: this.state.dataProfile.sdt,
+  //       dataB: this.state.dataProfile.address,
+  //       dataState: 3,
+  //     });
+  //     const wheel = document.getElementById("wheel_item1");
+  //     const wheel2 = document.getElementById("wheel_item2");
+  //     const wheel3 = document.getElementById("wheel_item3");
+  //     wheel.style.height = "10px";
+  //     wheel2.style.height = "30px";
+  //     wheel3.style.height = "10px";
+  //   }
+  //   if (this.state.dataState === 3) {
+  //     this.setState({
+  //       dataA: this.state.dataProfile.CurrentSigninAt,
+  //       dataB: this.state.dataProfile.CurrentSigninAt,
 
-        dataState: 1,
-      });
-      const wheel = document.getElementById("wheel_item1");
-      const wheel2 = document.getElementById("wheel_item2");
-      const wheel3 = document.getElementById("wheel_item3");
-      wheel.style.height = "10px";
-      wheel2.style.height = "10px";
-      wheel3.style.height = "30px";
-    }
+  //       dataState: 1,
+  //     });
+  //     const wheel = document.getElementById("wheel_item1");
+  //     const wheel2 = document.getElementById("wheel_item2");
+  //     const wheel3 = document.getElementById("wheel_item3");
+  //     wheel.style.height = "10px";
+  //     wheel2.style.height = "10px";
+  //     wheel3.style.height = "30px";
+  //   }
 
-    console.log(2);
-  };
+  //   console.log(2);
+  // };
   render() {
     if (this.state.loading) {
       return "dang loading";
     }
-
+    const { name, sdt, email, address, CurrentSigninAt } =
+      this.state.dataProfile;
     const DataSearch = this.state.data.filter((item) => {
       return item.name
         .toLowerCase()
@@ -172,27 +178,45 @@ export default class ListUser extends Component {
           </ul>
         </div>
         <div className="User_profile">
+          <ModalSendMail dataSendMail={email} />
           <div className="User_profile_container">
             <div className="User_profile_container_content">
+              <i
+                class="fas fa-share-square "
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal2"
+                data-bs-whatever="@mdo"
+              ></i>
               <div className="User_profile_container_content_avatar">
                 <img src="https://static.toiimg.com/thumb/resizemode-4,msid-76729536,width-1200,height-900/76729536.jpg" />
               </div>
-              <div
-                className="User_profile_container_content_text"
-                onWheel={this.handleOnScroll}
-              >
+              <div className="User_profile_container_content_text">
                 <div
                   className="User_profile_container_content_text_text"
                   id="User_profile_container_content_text_text"
                 >
-                  <p className="text-primary">{this.state.dataA}</p>
-                  <p className="text-primary">{this.state.dataB}</p>
+                  <h3>{name}</h3>
+                  <p className="text-primary">
+                    <i class="fas fa-envelope"></i>
+                    {email}
+                  </p>
+                  <p>
+                    <i class="fas fa-phone"></i>0{sdt}
+                  </p>
+                  <p>
+                    <i class="fas fa-home"></i>
+                    {address}
+                  </p>
+                  <p>
+                    <i class="fas fa-business-time"></i>
+                    {CurrentSigninAt}
+                  </p>
                 </div>
-                <div className="User_profile_container_content_text_wheel">
+                {/* <div className="User_profile_container_content_text_wheel">
                   <div className="item" id="wheel_item1"></div>
                   <div className="item" id="wheel_item2"></div>
                   <div className="item" id="wheel_item3"></div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

@@ -21,12 +21,14 @@ export default class User extends Component {
         console.log(err);
       });
   };
-
+  handleUpdate = () => {
+    this.props.updateUser();
+  };
   render() {
     const data = this.props.dataItem;
     return (
       <div>
-        <ModalUser dataUser={data} />
+        <ModalUser dataUser={data} handleUpdate={this.handleUpdate} />
         <div
           className="User_container"
           onClick={() => {
