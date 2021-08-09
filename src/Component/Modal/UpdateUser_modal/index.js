@@ -144,7 +144,7 @@ export default class ModalUser extends Component {
                         Close
                       </button>
                       <button type="submit" className="btn btn-primary">
-                        Send message
+                        UPDATE
                       </button>
                     </div>
                   </form>

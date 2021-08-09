@@ -111,7 +111,7 @@ export default class ModalSendMail extends Component {
                         Close
                       </button>
                       <button type="submit" className="btn btn-primary">
-                        Send message
+                        Send Mail
                       </button>
                     </div>
                   </form>

@@ -133,7 +133,7 @@ export default class Modal extends Component {
                         Close
                       </button>
                       <button type="submit" className="btn btn-primary">
-                        Send message
+                        ADD
                       </button>
                     </div>
                   </form>
